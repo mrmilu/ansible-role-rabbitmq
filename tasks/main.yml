@@ -7,6 +7,9 @@
 - name: Install rabbitmq-server package
   apt: name=rabbitmq-server state=latest update-cache=yes cache_valid_time=86400
 
+- name: Ensure RabbitMQ is running
+  service: name=rabbitmq-server state=started enabled=yes
+
 - name: Add rabbitmq user
   rabbitmq_user: user={{ rabbitmq.user }}
                  password={{ rabbitmq.password }}
@@ -15,6 +18,3 @@
                  read_priv=.*
                  write_priv=.*
                  state=present
-
-- name: Ensure RabbitMQ is running
-  service: name=rabbitmq-server state=started
