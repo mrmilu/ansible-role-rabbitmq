@@ -5,7 +5,7 @@
   apt_key: url=https://www.rabbitmq.com/rabbitmq-release-signing-key.asc state=present validate_certs=no
 
 - name: Install rabbitmq-server package
-  apt: name=rabbitmq-server state=latest update-cache=yes cache_valid_time=86400
+  apt: name=rabbitmq-server state=latest update-cache=yes 
 
 - name: Ensure RabbitMQ is running
   service: name=rabbitmq-server state=started enabled=yes
