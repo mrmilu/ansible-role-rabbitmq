@@ -27,8 +27,8 @@
 
 - name: Add rabbitmq user
   rabbitmq_user:
-    user: {{ rabbitmq.user }}
-    password: {{ rabbitmq.password }}
+    user: "{{ rabbitmq.user }}"
+    password: "{{ rabbitmq.password }}"
     vhost: "/"
     configure_priv: ".*"
     read_priv: ".*"
