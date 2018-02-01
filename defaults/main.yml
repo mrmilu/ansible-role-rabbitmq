@@ -3,3 +3,4 @@ rabbitmq:
   password: "password"
 rabbit_nofile_limit: 300000
 rabbit_enable_management: yes
+rabbitmq_endpoint: ""
