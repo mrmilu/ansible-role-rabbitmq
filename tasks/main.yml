@@ -1,3 +1,10 @@
+- name: add rabbitmq endpoint to hosts file
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1 localhost'
+    line: '127.0.0.1 localhost {{ rabbitmq_endpoint }}'
+    state: present
+
 - name: Download rabbitmq repository key (remove this on ansible 2.4)
   get_url:
     url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
@@ -19,18 +26,51 @@
     name: rabbitmq-server
     state: latest
 
-- name: Ensure RabbitMQ is running
+- name: ensure rabbit uses "localhost" as hostname
+  lineinfile:
+    path: /etc/rabbitmq/rabbitmq-env.conf
+    line: 'NODENAME=rabbit@localhost'
+    create: yes
+    mode: 0644
+  notify: rabbitmq restart
+
+- name: generate folder for config files
+  file:
+    path: /etc/rabbitmq/rabbitmq.conf.d
+    state: directory
+    mode: 0755
+
+- name: Ensure RabbitMQ is up and running
   service:
     name: rabbitmq-server
     state: started
     enabled: yes
 
+- name: enable management
+  when: rabbit_enable_management
+  rabbitmq_plugin:
+    names: rabbitmq_management
+    state: enabled
+
 - name: Add rabbitmq user
   rabbitmq_user:
     user: "{{ rabbitmq.user }}"
     password: "{{ rabbitmq.password }}"
+    tags: "management"
     vhost: "/"
     configure_priv: ".*"
     read_priv: ".*"
     write_priv: ".*"
     state: "present"
+
+- name: Remove guest user
+  rabbitmq_user:
+    user: "guest"
+    vhost: "/"
+    configure_priv: ".*"
+    read_priv: ".*"
+    write_priv: ".*"
+    state: "absent"
+
+- name: service_configuration
+  include_tasks: service_configuration.yml
