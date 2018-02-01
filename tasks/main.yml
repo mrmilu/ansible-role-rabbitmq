@@ -47,7 +47,6 @@
     state: restarted
 
 - name: Ensure RabbitMQ is up and enable
-  when: rabbit_nodename.changed
   service:
     name: rabbitmq-server
     state: started
