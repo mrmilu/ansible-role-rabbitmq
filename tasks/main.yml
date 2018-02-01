@@ -27,6 +27,7 @@
     state: latest
 
 - name: ensure rabbit uses "localhost" as hostname
+  register: rabbit_nodename
   lineinfile:
     path: /etc/rabbitmq/rabbitmq-env.conf
     line: 'NODENAME=rabbit@localhost'
@@ -40,10 +41,17 @@
     mode: 0755
 
 - name: Ensure RabbitMQ is restarted and enable
+  when: rabbit_nodename.changed
   service:
     name: rabbitmq-server
     state: restarted
-    enabled: yes
+
+- name: Ensure RabbitMQ is up and enable
+  when: rabbit_nodename.changed
+  service:
+    name: rabbitmq-server
+    state: started
+    enable: yes
 
 - name: enable management
   when: rabbit_enable_management
