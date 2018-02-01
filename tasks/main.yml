@@ -32,7 +32,6 @@
     line: 'NODENAME=rabbit@localhost'
     create: yes
     mode: 0644
-  notify: rabbitmq restart
 
 - name: generate folder for config files
   file:
@@ -40,10 +39,10 @@
     state: directory
     mode: 0755
 
-- name: Ensure RabbitMQ is up and running
+- name: Ensure RabbitMQ is restarted and enable
   service:
     name: rabbitmq-server
-    state: started
+    state: restarted
     enabled: yes
 
 - name: enable management
