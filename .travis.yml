@@ -9,4 +9,4 @@ install:
 
 script:
   - ansible-playbook -i inventory/travis test.yml --syntax-check
-  - /usr/bin/local/ansible-playbook -i inventory test.yml
+  - ansible-playbook -i inventory test.yml
