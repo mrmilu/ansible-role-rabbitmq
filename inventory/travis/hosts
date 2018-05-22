@@ -1,1 +1,6 @@
-roletest ansible_host=localhost ansible_user=root ansible_connection=local
+roletest
+
+[roletest:vars]
+ansible_host=localhost
+ansible_become=yes
+ansible_connection=local
