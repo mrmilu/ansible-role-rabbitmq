@@ -56,9 +56,12 @@ rabbitmq_pkgs:
 - "rabbitmq-server"
 ```
 
-
 ## TODO
 - manage vhosts
 - add tls support
 - manage queues
 - add tags
+
+
+## author
+aizquierdo@mrmilu.com
