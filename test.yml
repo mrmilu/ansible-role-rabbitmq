@@ -3,3 +3,11 @@
     ansible_python_interpreter: /usr/bin/python3
   roles:
   - .
+  post_tasks:
+  - name: capture users
+    shell: rabbitmqctl list_users
+    register: rabbitmq_users_status
+  - name: make tests
+    assert:
+      that:
+      - "rabbitmq_users[0].user in rabbitmq_users_status.stdout"

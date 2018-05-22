@@ -1,0 +1,12 @@
+---
+language: python
+python: "3"
+
+before_install:
+
+install:
+  - pip install ansible
+
+script:
+  - ansible-playbook -i inventory/travis test.yml --syntax-check
+  - /usr/bin/local/ansible-playbook -i inventory test.yml
