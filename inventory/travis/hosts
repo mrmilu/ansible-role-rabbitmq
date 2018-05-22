@@ -1,4 +1,5 @@
-roletest
+[roletest]
+localhost
 
 [roletest:vars]
 ansible_host=localhost
