@@ -1,0 +1,7 @@
+rabbitmq_repo_keys:
+- "https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc"
+- "https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc"
+
+rabbitmq_repo_entries:
+- "deb https://dl.bintray.com/rabbitmq/debian {{ ansible_distribution_release }} main"
+- "deb https://packages.erlang-solutions.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} contrib"

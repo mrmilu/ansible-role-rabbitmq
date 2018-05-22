@@ -1,6 +1,18 @@
-rabbitmq:
-  user: "project"
+rabbitmq_users:
+- user: "admin"
   password: "password"
-rabbit_nofile_limit: 300000
-rabbit_enable_management: yes
-rabbitmq_endpoint: ""
+  tags: "management"
+  vhost: "/"
+  configure_priv: ".*"
+  read_priv: ".*"
+  write_priv: ".*"
+  state: "present"
+
+rabbit_nofile_limit: 500000
+rabbit_enable_management: no
+
+rabbitmq_extra_files: []
+
+rabbitmq_pkgs:
+- "esl-erlang"
+- "rabbitmq-server"

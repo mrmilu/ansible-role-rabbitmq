@@ -1,0 +1,19 @@
+- name: ensure folder for systemd service conf
+  file:
+    path: "/etc/systemd/system/rabbitmq-server.service.d"
+    state: directory
+    mode: "0775"
+
+- name: setting nofile limits
+  register: nofile_stat
+  template:
+    src: limits.conf.j2
+    dest: "/etc/systemd/system/rabbitmq-server.service.d/limits.conf"
+    mode: "0664"
+
+- name: reload systemd service
+  when: nofile_stat is changed
+  systemd:
+    name: rabbitmq-server
+    state: restarted
+    daemon_reload: yes
