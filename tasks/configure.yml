@@ -38,7 +38,15 @@
 - name: Add rabbitmq user
   when: rabbitmq_users
   with_list: "{{ rabbitmq_users }}"
-  rabbitmq_user: "{{ item }}"
+  rabbitmq_user:
+    user: "{{ item.user }}"
+    password: "{{ item.password }}"
+    tags: "{{ item.tags }}"
+    vhost: "{{ item.vhost }}"
+    configure_priv: "{{ item.configure_priv }}"
+    read_priv: "{{ item.read_priv }}"
+    write_priv: "{{ item.write_priv }}"
+    state: "{{ item.state }}"
 
 - name: Remove guest user
   rabbitmq_user:
