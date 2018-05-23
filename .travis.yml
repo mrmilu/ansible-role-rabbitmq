@@ -1,12 +1,15 @@
----
-language: python
-python: "3.6"
 sudo: required
-before_install:
 
-install:
-  - pip install ansible
+services:
+  - docker
+
+before_install:
+  - 'sudo docker build --rm --file=tests/dockerfiles/debian9-tester --tag=debian9 tests/dockerfiles'
+  - 'sudo docker build --rm --file=tests/dockerfiles/ubuntu16-tester --tag=ubuntu16 tests/dockerfiles'
 
 script:
-  - ansible-playbook -i inventory/travis test.yml --syntax-check
-  - ansible-playbook -i inventory/travis test.yml
+  - 'sudo docker run --privileged -d --name test-debian9 -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/root:ro debian9-tester'
+  - 'sudo docker run --privileged -d --name test-ubuntu16 -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/root:ro ubuntu16-tester'
+  - 'sudo docker exec -it test-debian9 bash -c "ansible-playbook -v -i tests/inventory/travis tests/test.yml"'
+  - 'sudo docker exec -it test-ubuntu16 bash -c "ansible-playbook -v -i tests/inventory/travis tests/test.yml"'
+  - 'sudo docker rm -f test-ubuntu16 test-debian9'

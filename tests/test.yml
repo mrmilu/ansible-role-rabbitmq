@@ -1,6 +1,6 @@
 - hosts: roletest
   roles:
-  - .
+  - "{{ playbook_dir }}/../"
   post_tasks:
   - name: capture users
     shell: rabbitmqctl list_users
