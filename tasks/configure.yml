@@ -1,4 +1,5 @@
 - name: Ensure rabbit uses "localhost" as hostname
+  register: rabbitmq_hostname_stat
   notify: rabbitmq restart
   lineinfile:
     path: /etc/rabbitmq/rabbitmq-env.conf
@@ -6,7 +7,11 @@
     create: yes
     mode: "0644"
 
-- meta: flush_handlers
+- name: restart rabbit if is necessary
+  when: rabbitmq_hostname_stat is changed
+  service:
+    name: rabbitmq-server
+    state: restarted
 
 - name: Generate main config file
   notify: rabbitmq restart
