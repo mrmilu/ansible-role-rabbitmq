@@ -8,8 +8,8 @@ before_install:
   - 'sudo docker build --rm --file=tests/dockerfiles/ubuntu16 --tag=ubuntu16 tests/dockerfiles'
 
 script:
-  - 'sudo docker run --privileged -d --name test-debian9 -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/root:ro debian9'
-  - 'sudo docker run --privileged -d --name test-ubuntu16 -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/root:ro ubuntu16'
+  - 'sudo docker run --privileged -d --name test-debian9 -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/workdir:ro debian9'
+  - 'sudo docker run --privileged -d --name test-ubuntu16 -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/workdir:ro ubuntu16'
   - 'sudo docker exec -it test-debian9 bash -c "ansible-playbook -v -i tests/inventory/travis tests/test.yml"'
   - 'sudo docker exec -it test-ubuntu16 bash -c "ansible-playbook -v -i tests/inventory/travis tests/test.yml"'
   - 'sudo docker rm -f test-ubuntu16 test-debian9'
