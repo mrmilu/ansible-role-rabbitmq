@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mrmilu/ansible-role-rabbitmq.svg?branch=master)](https://travis-ci.org/mrmilu/ansible-role-rabbitmq)
+
 # Mr Milu ansible role rabbitmq
 
 Ansible role to install and configure rabbitmq in debian and ubuntu systems
