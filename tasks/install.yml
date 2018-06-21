@@ -10,11 +10,16 @@
     state: present
     update_cache: yes
 
+- name: freeze version of erlang packages
+  template:
+    src: erlang-apt-pinning.j2
+    dest: /etc/apt/preferences.d/erlang
+
 - name: Install packages
   notify: rabbitmq restart
   apt:
     name: "{{ rabbitmq_pkgs }}"
-    state: latest
+    state: present
 
 - name: Ensure RabbitMQ is up and enable
   service:

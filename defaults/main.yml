@@ -14,5 +14,4 @@ rabbit_enable_management: no
 rabbitmq_extra_files: []
 
 rabbitmq_pkgs:
-- "esl-erlang"
 - "rabbitmq-server"
