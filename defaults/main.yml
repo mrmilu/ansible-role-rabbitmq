@@ -15,3 +15,5 @@ rabbitmq_extra_files: []
 
 rabbitmq_pkgs:
 - "rabbitmq-server"
+
+rabbitmq_logdir: "/var/log/rabbitmq"
