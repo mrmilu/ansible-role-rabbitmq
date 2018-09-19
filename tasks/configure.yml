@@ -1,4 +1,5 @@
 - name: Ensure rabbit uses "localhost" as hostname
+  become: yes
   register: rabbitmq_hostname_stat
   notify: rabbitmq restart
   lineinfile:
@@ -8,12 +9,14 @@
     mode: "0644"
 
 - name: restart rabbit if is necessary
+  become: yes
   when: rabbitmq_hostname_stat is changed
   service:
     name: rabbitmq-server
     state: restarted
 
 - name: Generate main config file
+  become: yes
   notify: rabbitmq restart
   template:
     src: rabbitmq.config.j2
@@ -21,12 +24,14 @@
     mode: "0664"
 
 - name: Generate folder for extra config files
+  become: yes
   file:
     path: /etc/rabbitmq/rabbitmq.conf.d
     state: directory
     mode: "0775"
 
 - name: copy extra config files
+  become: yes
   when: rabbitmq_extra_files
   with_list: "{{ rabbitmq_extra_files }}"
   notify: rabbitmq restart
@@ -36,11 +41,13 @@
     mode: "0664"
 
 - name: set management ui
+  become: yes
   rabbitmq_plugin:
     names: rabbitmq_management
     state: '{{ "enabled" if rabbit_enable_management else "disabled" }}'
 
 - name: Add rabbitmq user
+  become: yes
   when: rabbitmq_users
   with_list: "{{ rabbitmq_users }}"
   rabbitmq_user:
@@ -54,6 +61,7 @@
     state: "{{ item.state }}"
 
 - name: Remove guest user
+  become: yes
   rabbitmq_user:
     user: "guest"
     state: "absent"

@@ -1,9 +1,11 @@
 - name: Add repository keys
+  become: yes
   with_list: "{{ rabbitmq_repo_keys }}"
   apt_key:
     url: "{{ item }}"
 
 - name: Add repositories
+  become: yes
   with_list: "{{ rabbitmq_repo_entries }}"
   apt_repository:
     repo: "{{ item }}"
@@ -11,17 +13,20 @@
     update_cache: yes
 
 - name: freeze version of erlang packages
+  become: yes
   template:
     src: erlang-apt-pinning.j2
     dest: /etc/apt/preferences.d/erlang
 
 - name: Install packages
+  become: yes
   notify: rabbitmq restart
   apt:
     name: "{{ rabbitmq_pkgs }}"
     state: present
 
 - name: Ensure RabbitMQ is up and enable
+  become: yes
   service:
     name: rabbitmq-server
     state: started
