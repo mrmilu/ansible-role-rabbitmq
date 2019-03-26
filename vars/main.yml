@@ -5,3 +5,16 @@ rabbitmq_repo_keys:
 rabbitmq_repo_entries:
 - 'deb https://packagecloud.io/rabbitmq/rabbitmq-server/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main'
 - "deb https://packages.erlang-solutions.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} contrib"
+
+
+# FALLBACK URLS
+# default: erlang/pacakgelcloid
+# alternative: bintray
+
+# rabbitmq_repo_keys:
+# - "https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq-erlang"
+# - "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey"
+#
+# rabbitmq_repo_entries:
+# - "deb https://dl.bintray.com/rabbitmq-erlang/debian {{ ansible_distribution_release }} erlang"
+# - "deb https://dl.bintray.com/rabbitmq/debian {{ ansible_distribution_release }} main"
