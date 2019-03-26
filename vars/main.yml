@@ -8,7 +8,7 @@ rabbitmq_repo_entries:
 
 
 # FALLBACK URLS
-# default: erlang/pacakgelcloid
+# default: erlang/packagecloud
 # alternative: bintray
 
 # rabbitmq_repo_keys:
