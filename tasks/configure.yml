@@ -4,6 +4,7 @@
   notify: rabbitmq restart
   lineinfile:
     path: /etc/rabbitmq/rabbitmq-env.conf
+    regexp: "^NODENAME="
     line: 'NODENAME=rabbit@localhost'
     create: yes
     mode: "0644"
