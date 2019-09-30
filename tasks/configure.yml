@@ -67,3 +67,4 @@
   rabbitmq_user:
     user: "guest"
     state: "absent"
+    node: "rabbit@localhost"
