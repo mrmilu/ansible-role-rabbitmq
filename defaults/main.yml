@@ -17,3 +17,8 @@ rabbitmq_pkgs:
 - "rabbitmq-server"
 
 rabbitmq_logdir: "/var/log/rabbitmq"
+
+rabbitmq_erlang_version: "1:21.3" # dependency of rabbitmq v3.8
+# by default we do not want to freeze rabbitmq version, uncomment to fix conflict problems. 
+rabbitmq_freeze_version: no
+# rabbitmq_freeze_version: "3.8.0-1"

@@ -1,7 +1,13 @@
 Package: erlang*
-Pin: version 1:20.3-1
+Pin: version {{ rabbitmq_erlang_version }}
 Pin-Priority: 1000
 
 Package: esl-erlang
-Pin: version 1:20.3.6
+Pin: version {{ rabbitmq_erlang_version }}
 Pin-Priority: 1000
+
+{% if rabbitmq_freeze_version %}
+Package: rabbitmq-server
+Pin: version {{ rabbitmq_freeze_version }}
+Pin-Priority: 1000
+{% endif %}
